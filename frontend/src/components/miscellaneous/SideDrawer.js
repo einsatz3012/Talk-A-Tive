@@ -31,6 +31,7 @@ import axios from "axios";
 import ChatLoading from "../ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
 import { getSender } from "../../config/ChatLogics";
+import NotificationBadge from "./NotificationBadge";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
@@ -150,12 +151,12 @@ function SideDrawer() {
         </Text>
         <div>
           <Menu>
-            <MenuButton p="1">
-              {/* <NotificationBadge count={notification.length} /> */}
+            <MenuButton p="1" position="relative">
+              {notification.length > 0 && <NotificationBadge />}
               <BellIcon fontSize="2xl" m="1" />
             </MenuButton>
             <MenuList pl="2">
-              {!notification.length && "No new messages"}{" "}
+              {notification.length <= 0 && "No new messages"}
               {notification.map((notif) => (
                 <MenuItem
                   key={notif._id}
