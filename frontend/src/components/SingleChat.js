@@ -122,6 +122,9 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
   useEffect(() => {
     fetchMessages();
 
+    if (selectedChat !== selectedChatCompare && selectedChatCompare)
+      socket.emit("room left", selectedChatCompare._id);
+
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
 

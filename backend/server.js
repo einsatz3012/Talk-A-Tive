@@ -54,6 +54,10 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on("room left", (room) => {
+    socket.leave(room);
+  });
+
   socket.off("setup", () => {
     console.log("USER DISCONNECTED");
     socket.leave(userData._id);
