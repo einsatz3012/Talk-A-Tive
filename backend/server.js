@@ -13,20 +13,7 @@ connectDB();
 
 const PORT = process.env.PORT || 5000;
 
-const whitelist = ["https://frolicking-truffle-5380f9.netlify.app/"];
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || whitelist.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
-
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/user", userRoutes);
