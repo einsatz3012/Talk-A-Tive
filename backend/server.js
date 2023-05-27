@@ -27,7 +27,7 @@ const server = app.listen(PORT, console.log(`Server started on PORT ${PORT}`));
 
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
-  cors: { origin: "https://frolicking-truffle-5380f9.netlify.app" },
+  cors: { origin: "https://talkepoch.netlify.app" },
 });
 
 io.on("connection", (socket) => {
