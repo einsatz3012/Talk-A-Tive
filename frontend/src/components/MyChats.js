@@ -11,6 +11,7 @@ function MyChats({ fetchAgain }) {
   const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState();
 
   const [loggedUser, setLoggedUser] = useState(user);
+  const [loading, setLoading] = useState(true);
 
   const toast = useToast();
 
@@ -23,6 +24,7 @@ function MyChats({ fetchAgain }) {
       };
 
       const { data } = await axios.get("/api/chat", config);
+      setLoading(false);
 
       setChats(data);
     } catch (error) {
@@ -41,6 +43,10 @@ function MyChats({ fetchAgain }) {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
   }, [fetchAgain]);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 10000);
+  }, []);
 
   return (
     <Box
@@ -85,6 +91,10 @@ function MyChats({ fetchAgain }) {
         borderRadius="lg"
         overflowY="hidden"
       >
+        {/**
+         * When no chats: Show skeleton if loading else No Chats Message after 10s
+         * When Chats: Show Chats
+         */}
         {chats.length > 0 ? (
           <Stack overflowY="scroll">
             {chats.map((chat) => (
@@ -106,8 +116,14 @@ function MyChats({ fetchAgain }) {
               </Box>
             ))}
           </Stack>
-        ) : (
+        ) : loading ? (
           <ChatLoading />
+        ) : (
+          <div>
+            <h1 style={{ textAlign: "center", fontSize: "1.5rem" }}>
+              You do not have any chats
+            </h1>
+          </div>
         )}
       </Box>
     </Box>
