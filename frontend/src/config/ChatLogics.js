@@ -38,7 +38,7 @@ export const isSameSenderMargin = (messages, m, i, userId) => {
   // sender same as next message && is not the loggedin user, set margin to 33 (to align with dp width)
   if (
     i < messages.length - 1 &&
-    messages[i + 1].sender._id === m.sender.id &&
+    messages[i + 1].sender._id === m.sender._id &&
     messages[i].sender._id !== userId
   )
     return 33;
